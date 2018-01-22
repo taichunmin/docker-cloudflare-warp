@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:latest
+  warp:
+    image: taichunmin/cloudflare-warp:latest
+    volumes:
+      - ./cloudflare-warp:/root/.cloudflare-warp
+    environment:
+      - CLOUDFLARE_HOSTNAME=${CLOUDFLARE_HOSTNAME}
+      - URL=http://nginx
