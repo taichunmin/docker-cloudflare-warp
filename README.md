@@ -1,40 +1,35 @@
 # docker-cloudflare-warp
 
-Docker image for Cloudflare Warp.
+Docker image for Cloudflare Warp. In favor of alpine, the docker image size is only 22 MB.
 
 ## Usage
 
 1. Write a `docker-compose.yml` file.
+  ```yml
+  version: '2'
 
-```yml
-version: '2'
-
-services:
-  warp:
-    image: taichunmin/cloudflare-warp
-    volumes:
-      - ./cloudflare-warp:/root/.cloudflare-warp
-    environment:
-      - CLOUDFLARE_HOSTNAME=your.domain.com
-      - URL=http://127.0.0.1
-```
-
+  services:
+    warp:
+      image: taichunmin/cloudflare-warp:latest
+      volumes:
+        - ./cloudflare-warp:/root/.cloudflare-warp
+      environment:
+        - WRAP_HOSTNAME=your.domain.com
+        - WRAP_URL=http://127.0.0.1
+  ```
 2. use `docker-compose up -d` to start container.
-
-```shell
-Creating minioasis_warp_1    ... done
-```
-
+  ```shell
+  Creating minioasis_warp_1    ... done
+  ```
 3. you need to use `docker-compose logs warp` to login to cloudflare warp once.
-
-```shell
-Attaching to docker_warp_1
-warp_1             | Please open the following URL and log in with your Cloudflare account:
-warp_1             |
-warp_1             | https://www.cloudflare.com/a/warp?callback=https%3A%2F%2Flogin.cloudflarewarp.com%2FXXXXXXXXXXXX
-warp_1             |
-warp_1             | Leave cloudflare-warp running to install the certificate automatically.
-```
+  ```shell
+  Attaching to docker_warp_1
+  warp_1             | Please open the following URL and log in with your Cloudflare account:
+  warp_1             |
+  warp_1             | https://www.cloudflare.com/a/warp?callback=https%3A%2F%2Flogin.cloudflarewarp.com%2FXXXXXXXXXXXX
+  warp_1             |
+  warp_1             | Leave cloudflare-warp running to install the certificate automatically.
+  ```
 
 ## DEMO
 
@@ -45,7 +40,7 @@ $ cp .env.example .env
 
 $ nano .env
 
-# edit CLOUDFLARE_HOSTNAME=your.domain.com
+# edit WRAP_HOSTNAME=your.domain.com
 
 $ sudo docker-compose up -d
 

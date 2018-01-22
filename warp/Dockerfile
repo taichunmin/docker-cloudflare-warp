@@ -1,19 +1,21 @@
-FROM ubuntu:16.04
+FROM alpine:3.7
 LABEL maintainer="taichunmin@gmail.com"
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 LANGUAGE=C.UTF-8 DEBIAN_FRONTEND=noninteractive
 
-WORKDIR /bin
+RUN set -ex; \
+  apk add --no-cache ca-certificates; \
+  apk add --no-cache --virtual .fetch-deps curl tar; \
+  if ! curl -fL -o warp.tgz https://bin.equinox.io/c/2ovkwS9YHaP/warp-stable-linux-arm.tgz; then \
+    echo >&2 "error: failed to download 'https://bin.equinox.io/c/2ovkwS9YHaP/warp-stable-linux-arm.tgz'"; \
+    exit 1; \
+  fi; \
+  tar --extract \
+    --file warp.tgz \
+    --directory /usr/local/bin/ \
+  ; \
+  rm warp.tgz; \
+  apk del .fetch-deps
 
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
+COPY docker-cmd.sh /usr/local/bin/docker-cmd
+RUN chmod +x /usr/local/bin/docker-cmd
 
-ADD https://bin.equinox.io/c/2ovkwS9YHaP/warp-stable-linux-arm.tgz /bin
-RUN tar zxf /bin/warp-stable-linux-arm.tgz && \
-  rm /bin/warp-stable-linux-arm.tgz
-
-COPY start.sh /bin/start.sh
-RUN chmod +x /bin/start.sh
-
-RUN apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-CMD ["/bin/start.sh"]
+CMD ["docker-cmd"]
