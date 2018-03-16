@@ -1,3 +1,10 @@
+[![GitHub stars](https://img.shields.io/github/stars/taichunmin/docker-cloudflare-warp.svg)](https://github.com/taichunmin/docker-cloudflare-warp/stargazers)
+[![GitHub license](https://img.shields.io/github/license/taichunmin/docker-cloudflare-warp.svg)](https://github.com/taichunmin/docker-cloudflare-warp/blob/master/LICENSE)
+![Docker Stars](https://img.shields.io/docker/stars/taichunmin/cloudflare-warp.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/taichunmin/cloudflare-warp.svg)
+![Docker Automated build](https://img.shields.io/docker/automated/taichunmin/cloudflare-warp.svg)
+![Docker Build Status](https://img.shields.io/docker/build/taichunmin/cloudflare-warp.svg)
+
 # docker-cloudflare-warp
 
 Docker image for Cloudflare Warp. In favor of alpine, the docker image size is only 22 MB.
